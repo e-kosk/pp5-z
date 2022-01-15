@@ -1,10 +1,10 @@
 package pl.ekosk.sales;
 
 public class SalesFacade {
-    CartStorage cartStorage;
+    InMemoryCartStorage cartStorage;
     private ProductDetailsProvider productDetailsProvider;
 
-    public SalesFacade(CartStorage cartStorage, ProductDetailsProvider productDetailsProvider) {
+    public SalesFacade(InMemoryCartStorage cartStorage, ProductDetailsProvider productDetailsProvider) {
         this.cartStorage = cartStorage;
         this.productDetailsProvider = productDetailsProvider;
     }
