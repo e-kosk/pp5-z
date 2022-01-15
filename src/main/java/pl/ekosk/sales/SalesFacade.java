@@ -1,5 +1,7 @@
 package pl.ekosk.sales;
 
+import java.math.BigDecimal;
+
 public class SalesFacade {
     InMemoryCartStorage cartStorage;
     private ProductDetailsProvider productDetailsProvider;
@@ -18,5 +20,9 @@ public class SalesFacade {
         cart.addProduct(product);
 
         cartStorage.save(customerId, cart);
+    }
+
+    public Offer getCurrentOffer(String customerId) {
+        return new Offer(BigDecimal.ZERO);
     }
 }

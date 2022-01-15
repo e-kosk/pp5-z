@@ -34,6 +34,51 @@ public class CollectingProductsTest {
         thereIsXProductInCustomersCart(1, customerId);
     }
 
+    @Test
+    void itAllowsToAddMultipleProductsToCart() {
+        //Arrange
+        String customerId = thereIsCustomer("Eryk");
+        String productId1 = thereIsProduct("product-1");
+        String productId2 = thereIsProduct("product-2");
+        SalesFacade sales = thereIsSalesModule();
+
+        //Act
+        sales.addToCart(customerId, productId1);
+        sales.addToCart(customerId, productId2);
+
+        //Assert
+        thereIsXProductInCustomersCart(2, customerId);
+    }
+
+    @Test
+    void itIncreaseProductQuantityForTheSameProductAddedTwice() {
+        //Arrange
+        String customerId = thereIsCustomer("Eryk");
+        String productId1 = thereIsProduct("product-1");
+        SalesFacade sales = thereIsSalesModule();
+
+        //Act
+        sales.addToCart(customerId, productId1);
+        sales.addToCart(customerId, productId1);
+
+        //Assert
+        thereIsXProductInCustomersCart(1, customerId);
+        quantityOfProductXProductInCustomersCartEquals(productId1, customerId, 2);
+    }
+
+    private void quantityOfProductXProductInCustomersCartEquals(String productId, String customerId, int expectedQuantity) {
+        Cart cart = cartStorage.loadForCustomer(customerId).get();
+
+        CartItem loadedCartItem = cart.getItems()
+                .stream()
+                .filter(item -> item.getProductId().equals(productId))
+                .findFirst()
+                .get();
+
+        assertEquals(expectedQuantity, loadedCartItem.getQuantity());
+    }
+
+
     private void thereIsXProductInCustomersCart(int productsCount, String customerId) {
         Optional<Cart> optionalCart = cartStorage.loadForCustomer(customerId);
         assertTrue(optionalCart.isPresent(), "There is no cart available");

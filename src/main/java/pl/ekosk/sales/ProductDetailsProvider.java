@@ -1,5 +1,5 @@
 package pl.ekosk.sales;
 
-interface ProductDetailsProvider {
+public interface ProductDetailsProvider {
     Product getDetails(String productId);
 }

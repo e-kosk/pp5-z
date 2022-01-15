@@ -1,6 +1,7 @@
 package pl.ekosk.sales;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Cart {
@@ -21,5 +22,9 @@ public class Cart {
 
     public void addProduct(Product product) {
         products.add(product);
+    }
+
+    public List<CartItem> getItems() {
+        return Collections.emptyList();
     }
 }
