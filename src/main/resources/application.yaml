@@ -10,4 +10,4 @@ spring:
   h2:
     console:
       enabled: true
-        path: /h2db
+      path: /h2db
