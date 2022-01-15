@@ -3,6 +3,7 @@ package pl.ekosk.productcatalog;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class InMemoryProductStorage implements ProductStorage {
@@ -18,8 +19,8 @@ public class InMemoryProductStorage implements ProductStorage {
     }
 
     @Override
-    public Product loadById(String productId) {
-        return products.get(productId);
+    public Optional<Product> loadById(String productId) {
+        return Optional.ofNullable(products.get(productId));
     }
 
     @Override
