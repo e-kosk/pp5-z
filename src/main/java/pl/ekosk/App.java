@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import pl.ekosk.greetings.Greeter;
-import pl.ekosk.productcatalog.DatabaseProductStorage;
-import pl.ekosk.productcatalog.ProductCatalog;
-import pl.ekosk.productcatalog.InMemoryProductStorage;
-import pl.ekosk.productcatalog.ProductStorage;
+import pl.ekosk.productcatalog.*;
+
+import java.math.BigDecimal;
+import java.util.UUID;
 
 @SpringBootApplication
 public class App {
@@ -24,19 +24,22 @@ public class App {
 
     @Bean
     ProductCatalog createCatalog(ProductStorage productStorage) {
-        return new ProductCatalog(productStorage);
+        ProductCatalog productCatalog = new ProductCatalog(productStorage);
+
+        productCatalog.addProduct(
+                "product-1",
+                "my nice picture",
+                "very nice"
+        );
+        productCatalog.updatePrice("product-1", BigDecimal.valueOf(10.10));
+        productCatalog.publish("product-1");
+
+        return productCatalog;
     }
 
     @Bean
-    ProductStorage provideProductStorate() {
-        return crateproductStoage();
+    ProductStorage createDbProductStorage(ProductRepository productRepository) {
+        return new DatabaseProductStorage(productRepository);
     }
 
-    DatabaseProductStorage createDbProductSotrage() {
-        return new DatabaseProductStorage();
-    }
-
-    InMemoryProductStorage crateproductStoage() {
-        return new InMemoryProductStorage();
-    }
 }
