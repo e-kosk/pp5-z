@@ -19,10 +19,6 @@ public class Offer {
     }
 
     public int getItemsCount() {
-        return itemsCount;
-    }
-
-    public List<OfferLine> getLines() {
-        return lines;
+        return lines.size();
     }
 }
