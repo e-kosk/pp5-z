@@ -1,4 +1,4 @@
-package pl.ekosk.sales;
+package pl.ekosk.sales.cart;
 
 import java.util.HashMap;
 import java.util.Optional;

@@ -5,13 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import pl.ekosk.greetings.Greeter;
 import pl.ekosk.productcatalog.*;
-import pl.ekosk.sales.InMemoryCartStorage;
-import pl.ekosk.sales.Product;
-import pl.ekosk.sales.ProductDetailsProvider;
-import pl.ekosk.sales.SalesFacade;
+import pl.ekosk.productcatalog.Product;
+import pl.ekosk.sales.*;
+import pl.ekosk.sales.cart.InMemoryCartStorage;
+import pl.ekosk.sales.offerting.OfferMaker;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @SpringBootApplication
 public class App {
@@ -58,16 +57,20 @@ public class App {
 
     @Bean
     SalesFacade createSalesFacade(ProductCatalog productCatalog) {
+        ProductDetailsProvider productDetailsProvider = (ProductDetailsProvider) (productId) -> {
+            Product loadedProduct = productCatalog.loadProduct(productId);
+
+            return new pl.ekosk.sales.Product(
+                    loadedProduct.getProductId(),
+                    loadedProduct.getName(),
+                    loadedProduct.getPrice()
+            );
+        };
+
         return new SalesFacade(
                 new InMemoryCartStorage(),
-                (productId) -> {
-                    pl.ekosk.productcatalog.Product loadedProduct = productCatalog.loadProduct(productId);
-
-                    return new Product(
-                            loadedProduct.getProductId(),
-                            loadedProduct.getName(),
-                            loadedProduct.getPrice()
-                    );
-                });
+                productDetailsProvider,
+                new OfferMaker(productDetailsProvider)
+        );
     }
 }

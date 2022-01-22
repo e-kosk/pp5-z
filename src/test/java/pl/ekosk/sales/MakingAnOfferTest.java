@@ -2,6 +2,10 @@ package pl.ekosk.sales;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.ekosk.sales.cart.InMemoryCartStorage;
+import pl.ekosk.sales.offerting.Offer;
+import pl.ekosk.sales.offerting.OfferMaker;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
@@ -23,6 +27,7 @@ public class MakingAnOfferTest {
         String customerId = thereIsCustomer("Eryk");
         String productId = thereIsProduct("product-1", BigDecimal.valueOf(10.10));
         SalesFacade sales = thereIsSalesModule();
+
         //Act
         sales.addToCart(customerId, productId);
         sales.addToCart(customerId, productId);
@@ -45,6 +50,9 @@ public class MakingAnOfferTest {
     }
 
     private SalesFacade thereIsSalesModule() {
-        return new SalesFacade(cartStorage, productDetailsProvider);
+        return new SalesFacade(
+                cartStorage,
+                productDetailsProvider,
+                new OfferMaker(productDetailsProvider));
     }
 }
