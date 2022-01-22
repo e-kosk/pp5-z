@@ -22,6 +22,12 @@ public class SalesController {
         salesFacade.addToCart(customerId, productId);
     }
 
+    @PostMapping("/api/accept-offer")
+    public void acceptOffer() {
+        String customerId = getCurrentCustomerId();
+        salesFacade.acceptOffer(customerId);
+    }
+
     @GetMapping("/api/current-offer")
     public Offer getCurrentOffer() {
         String customerId = getCurrentCustomerId();
