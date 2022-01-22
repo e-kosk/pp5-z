@@ -1,9 +1,7 @@
 package pl.ekosk.sales;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import pl.ekosk.sales.offerting.Offer;
 
 @RestController
@@ -23,9 +21,9 @@ public class SalesController {
     }
 
     @PostMapping("/api/accept-offer")
-    public void acceptOffer() {
+    public void acceptOffer(@RequestBody CustomerData customerData) {
         String customerId = getCurrentCustomerId();
-        salesFacade.acceptOffer(customerId);
+        salesFacade.acceptOffer(customerId, customerData);
     }
 
     @GetMapping("/api/current-offer")

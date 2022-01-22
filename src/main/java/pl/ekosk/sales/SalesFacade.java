@@ -38,7 +38,7 @@ public class SalesFacade {
         return offerMaker.createAnOffer(cart);
     }
 
-    public void acceptOffer(String customerId) {
-
+    public ReservationDetails acceptOffer(String customerId, CustomerData customerData) {
+        return null;
     }
 }
