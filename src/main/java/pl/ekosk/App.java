@@ -82,7 +82,9 @@ public class App {
         return new SalesFacade(
                 new InMemoryCartStorage(),
                 productDetailsProvider,
-                new OfferMaker(productDetailsProvider)
+                new OfferMaker(productDetailsProvider),
+                new DummyPaymentGateway(),
+                new InMemoryReservationStorage()
         );
     }
 }

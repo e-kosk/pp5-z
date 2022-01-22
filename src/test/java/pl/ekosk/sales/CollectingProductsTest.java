@@ -92,7 +92,7 @@ public class CollectingProductsTest {
     }
 
     private SalesFacade thereIsSalesModule() {
-        return new SalesFacade(cartStorage, productDetailsProvider, new OfferMaker(productDetailsProvider));
+        return new SalesFacade(cartStorage, productDetailsProvider, new OfferMaker(productDetailsProvider), new DummyPaymentGateway(), new InMemoryReservationStorage());
     }
 
     private String thereIsProduct(String productId) {

@@ -88,6 +88,8 @@ public class OrderingTest {
         return new SalesFacade(
                 cartStorage,
                 productDetailsProvider,
-                new OfferMaker(productDetailsProvider));
+                new OfferMaker(productDetailsProvider),
+                new DummyPaymentGateway(),
+                reservationStorage);
     }
 }

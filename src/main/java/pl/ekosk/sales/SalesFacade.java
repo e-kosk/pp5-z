@@ -1,23 +1,31 @@
 package pl.ekosk.sales;
 
+import pl.ekosk.productcatalog.DatabaseProductStorage;
 import pl.ekosk.sales.cart.Cart;
 import pl.ekosk.sales.cart.InMemoryCartStorage;
 import pl.ekosk.sales.offerting.Offer;
 import pl.ekosk.sales.offerting.OfferMaker;
 
+
 public class SalesFacade {
     InMemoryCartStorage cartStorage;
     private ProductDetailsProvider productDetailsProvider;
     private OfferMaker offerMaker;
+    private PaymentGateway paymentGateway;
+    private InMemoryReservationStorage reservationStorage;
 
     public SalesFacade(
             InMemoryCartStorage cartStorage,
             ProductDetailsProvider productDetailsProvider,
-            OfferMaker offerMaker
+            OfferMaker offerMaker,
+            PaymentGateway paymentGateway,
+            InMemoryReservationStorage reservationStorage
     ) {
         this.cartStorage = cartStorage;
         this.productDetailsProvider = productDetailsProvider;
         this.offerMaker = offerMaker;
+        this.paymentGateway = paymentGateway;
+        this.reservationStorage = reservationStorage;
     }
 
     public void addToCart(String customerId, String productId) {
@@ -39,6 +47,24 @@ public class SalesFacade {
     }
 
     public ReservationDetails acceptOffer(String customerId, CustomerData customerData) {
-        return null;
+        Cart cart = cartStorage.loadForCustomer(customerId)
+                .orElse(Cart.empty());
+        Offer currentOffer = offerMaker.createAnOffer(cart);
+
+        Reservation reservation = Reservation.of(
+                currentOffer,
+                cart.getItems(),
+                customerData
+        );
+
+        reservation.registerPayment(paymentGateway);
+
+        reservationStorage.save(reservation);
+
+        return new ReservationDetails(
+                reservation.getId(),
+                reservation.getPaymentId(),
+                reservation.getPaymentUrl()
+        );
     }
 }
