@@ -6,6 +6,8 @@ import pl.ekosk.sales.cart.Cart;
 import pl.ekosk.sales.cart.CartItem;
 import pl.ekosk.sales.cart.InMemoryCartStorage;
 import pl.ekosk.sales.offerting.OfferMaker;
+import pl.ekosk.sales.ordering.DummyPaymentGateway;
+import pl.ekosk.sales.ordering.InMemoryReservationStorage;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

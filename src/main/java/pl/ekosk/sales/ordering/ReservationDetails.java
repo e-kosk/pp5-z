@@ -1,4 +1,4 @@
-package pl.ekosk.sales;
+package pl.ekosk.sales.ordering;
 
 public class ReservationDetails {
     private final String reservationId;

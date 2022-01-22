@@ -9,6 +9,9 @@ import pl.ekosk.productcatalog.Product;
 import pl.ekosk.sales.*;
 import pl.ekosk.sales.cart.InMemoryCartStorage;
 import pl.ekosk.sales.offerting.OfferMaker;
+import pl.ekosk.sales.ordering.DummyPaymentGateway;
+import pl.ekosk.sales.ordering.JpaReservationStorage;
+import pl.ekosk.sales.ordering.ReservationRepository;
 
 import java.math.BigDecimal;
 
@@ -68,7 +71,7 @@ public class App {
     }
 
     @Bean
-    SalesFacade createSalesFacade(ProductCatalog productCatalog) {
+    SalesFacade createSalesFacade(ProductCatalog productCatalog, JpaReservationStorage jpaReservationStorage) {
         ProductDetailsProvider productDetailsProvider = (ProductDetailsProvider) (productId) -> {
             Product loadedProduct = productCatalog.loadProduct(productId);
 
@@ -84,7 +87,12 @@ public class App {
                 productDetailsProvider,
                 new OfferMaker(productDetailsProvider),
                 new DummyPaymentGateway(),
-                new InMemoryReservationStorage()
+                jpaReservationStorage
         );
+    }
+
+    @Bean
+    JpaReservationStorage createReservationStorage(ReservationRepository reservationRepository) {
+        return new JpaReservationStorage(reservationRepository);
     }
 }

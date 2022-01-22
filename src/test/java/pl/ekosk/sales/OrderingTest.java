@@ -1,12 +1,11 @@
 package pl.ekosk.sales;
 
-import net.bytebuddy.agent.builder.AgentBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import pl.ekosk.sales.cart.InMemoryCartStorage;
-import pl.ekosk.sales.offerting.Offer;
 import pl.ekosk.sales.offerting.OfferMaker;
+import pl.ekosk.sales.ordering.*;
 
 import java.math.BigDecimal;
 import java.util.Optional;

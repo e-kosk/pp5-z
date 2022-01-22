@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import pl.ekosk.sales.cart.InMemoryCartStorage;
 import pl.ekosk.sales.offerting.Offer;
 import pl.ekosk.sales.offerting.OfferMaker;
+import pl.ekosk.sales.ordering.DummyPaymentGateway;
+import pl.ekosk.sales.ordering.InMemoryReservationStorage;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,8 +1,8 @@
 package pl.ekosk.sales;
 
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.ekosk.sales.offerting.Offer;
+import pl.ekosk.sales.ordering.CustomerData;
 
 @RestController
 public class SalesController {

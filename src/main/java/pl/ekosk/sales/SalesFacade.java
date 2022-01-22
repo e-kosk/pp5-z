@@ -1,10 +1,10 @@
 package pl.ekosk.sales;
 
-import pl.ekosk.productcatalog.DatabaseProductStorage;
 import pl.ekosk.sales.cart.Cart;
 import pl.ekosk.sales.cart.InMemoryCartStorage;
 import pl.ekosk.sales.offerting.Offer;
 import pl.ekosk.sales.offerting.OfferMaker;
+import pl.ekosk.sales.ordering.*;
 
 
 public class SalesFacade {
@@ -12,14 +12,14 @@ public class SalesFacade {
     private ProductDetailsProvider productDetailsProvider;
     private OfferMaker offerMaker;
     private PaymentGateway paymentGateway;
-    private InMemoryReservationStorage reservationStorage;
+    private ReservationStorage reservationStorage;
 
     public SalesFacade(
             InMemoryCartStorage cartStorage,
             ProductDetailsProvider productDetailsProvider,
             OfferMaker offerMaker,
             PaymentGateway paymentGateway,
-            InMemoryReservationStorage reservationStorage
+            ReservationStorage reservationStorage
     ) {
         this.cartStorage = cartStorage;
         this.productDetailsProvider = productDetailsProvider;

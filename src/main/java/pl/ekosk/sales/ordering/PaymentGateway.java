@@ -1,4 +1,4 @@
-package pl.ekosk.sales;
+package pl.ekosk.sales.ordering;
 
 import java.math.BigDecimal;
 

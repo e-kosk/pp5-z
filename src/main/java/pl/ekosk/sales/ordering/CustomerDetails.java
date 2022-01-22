@@ -1,9 +1,14 @@
-package pl.ekosk.sales;
+package pl.ekosk.sales.ordering;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class CustomerDetails {
     private String email;
     private String firstname;
     private String lastname;
+
+    CustomerDetails() {};
 
     public CustomerDetails(String email, String firstname, String lastname) {
 
