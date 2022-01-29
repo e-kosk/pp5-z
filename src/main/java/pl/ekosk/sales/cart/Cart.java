@@ -19,7 +19,13 @@ public class Cart {
     }
 
     public int getProductsCount() {
-        return products.size();
+        return (int) products.stream()
+                .map(Product::getProductId)
+                .collect(Collectors.groupingBy(w -> w))
+                .entrySet()
+                .stream()
+                .map(v -> new CartItem(v.getKey(), v.getValue().size()))
+                .count();
     }
 
     public void addProduct(Product product) {
@@ -28,7 +34,11 @@ public class Cart {
 
     public List<CartItem> getItems() {
         return products.stream()
-                .map(p -> new CartItem(p.getProductId(), 1))
+                .map(Product::getProductId)
+                .collect(Collectors.groupingBy(w -> w))
+                .entrySet()
+                .stream()
+                .map(v -> new CartItem(v.getKey(), v.getValue().size()))
                 .collect(Collectors.toList());
     }
 }
