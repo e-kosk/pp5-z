@@ -21,6 +21,10 @@ public class PaymentRequest {
     private Buyer buyer;
     private List<Product> products;
 
+    public void setMerchantPosId(String merchantPosId) {
+        this.merchantPosId = merchantPosId;
+    }
+
     @NoArgsConstructor
     @AllArgsConstructor
     @Data
