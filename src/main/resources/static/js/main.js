@@ -18,17 +18,23 @@ const handlerAddToCart = (productId) => {
 const createProductHtmlElement = (productData) => {
     const template = `
         <li class="product">
-            <h3>${productData.name}</h3>
-            <div class="product__image-container">
-                <img class="product__image" src="${productData.imageUrl}"/>
+            <div class="card" style="width: 18rem;">
+              <img src="${productData.imageUrl}" class="card-img-top product__image" alt="${productData.name} photo">
+              <div class="card-body">
+                <h5 class="card-title">${productData.name}</h5>
+                <p class="card-text">${productData.description}</p>
+                <button
+                    class="product__add-to-cart btn btn-primary"
+                    data-product-id="${productData.productId}"
+                >
+                    Add to cart
+                      <span class="product__price position-relative top-10 start-50 translate-middle badge rounded-pill bg-danger">
+                        ${productData.price} PLN
+                        <span class="visually-hidden">price</span>
+                      </span>
+                </button>
+              </div>
             </div>
-            <span class="product__price">${productData.price} PLN</span>
-            <button
-                class="product__add-to-cart"
-                data-product-id="${productData.productId}"
-            >
-                Add to cart
-            </button>
         </li>
     `;
 
